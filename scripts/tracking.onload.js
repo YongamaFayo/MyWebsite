@@ -1,0 +1,1 @@
+gtag('event', 'conversion', { 'allow_custom_scripts': true, 'ul':'guest', 'u3': 'all pages', 'send_to': 'DC-99990641/globa0/stand0+standard' }

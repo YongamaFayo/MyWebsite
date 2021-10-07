@@ -1,0 +1,134 @@
+*{
+
+    padding: 0px;
+    margin: 0px;
+}
+
+
+.img{
+
+    background-image: url("../images/pexels.jpg");
+    background-size: cover;
+    background-position:center;
+    height:90vh;
+    color: chocolate;
+    font-family:Arial, Helvetica, sans-serif;
+    
+    
+        
+}
+#page .button{
+    padding-left: 20px;
+    font-size: 30px;
+    text-decoration: none;
+    color:black;
+    border:grey 1px solid;
+    padding: 10px 20px;
+    border-radius: 10px;
+    /* margin-top: 20px; */
+    margin-top: 30px;
+    margin: 30px;
+    cursor: pointer;
+
+
+}
+/* .button:hover{
+
+    animation: animate 8s linear infinite;
+} */
+@keyframes animate{
+
+    0%
+    {
+        background-position: 0%;
+    }
+    100%
+    {
+        background-position: 400%;
+    }
+}
+.img button:hover{
+
+    transform: translateY(-10px);
+    }
+#nav-bar{
+
+    position: sticky;
+    top: 0%;
+    z-index: 10;
+  }
+  .navbar{
+  
+      background-image: linear-gradient(to right,black, grey);
+      padding: 0 !important;
+     
+  }
+  .navbar-brand img {
+  
+      height: 50px;
+      padding-left: 30px;
+  }
+  .navbar-nav li  {
+  
+      padding:0 10px; 
+  
+  }
+  .navbar-nav li a{
+  
+    color:#fff !important;
+    font-weight: 600;
+    float: right;
+    text-align: left;
+  }
+  .fa-bars{
+  
+    color: #fff;
+    font-size: 30px !important;
+  
+  }
+  .navbar-toggler{
+  
+  outline: none !important;
+  
+  
+  }
+  .col-md-6 img
+  {
+    height: 300px;
+    float:right;
+  
+  }
+  .row{
+  /* float: right; */
+    text-align: center; 
+  }
+  .container{
+  
+    text-align: center;
+  }
+  .heading{
+  
+    font-size:larger;
+    font-style: normal;
+    font-weight:400;
+    margin-left:5px;
+    margin-top:100px;
+    color: #a517ba;
+  
+    
+  }
+  
+  .row {
+  
+    color: #5f1782;
+    /* background-color: white;
+    color: black;
+    border: 2px solid #4CAF50; Green */
+  }
+  .image team{
+  size: 10px;
+  }
+  .meet{
+  
+    text-align: center;
+  }

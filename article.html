@@ -1,0 +1,296 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>WPP article</title>
+    <link rel="stylesheet" href="/yongama/css/accstyle.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '216212936198176');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=216212936198176&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Facebook Pixel Code -->
+
+
+
+    
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-188561591-1"></script>
+    <script type="text/javascript" src="scripts/tracking.js"></script>
+    <!-- End of Global site tag -->
+
+
+
+
+</head>
+
+
+
+<body>
+    <div class="main">
+        <div class="head">
+            <div class="datetime">January 21, 2021</div>
+
+
+
+            <h1>
+                <a href=""> How We Improved SmashingMag Performance</a>
+                <!-- <a href=""></a> -->
+            </h1>
+
+
+        </div>
+
+        <div class="article">
+            <p>
+            
+
+                Every web performance story is similar, isn’t it? It always starts with the long-awaited website
+                overhaul. A
+                day when a project, fully polished and carefully optimized, gets launched, ranking high and soaring
+                above
+                performance scores in Lighthouse and WebPageTest. There is a celebration and a wholehearted sense of
+                accomplishment prevailing in the air — beautifully reflected in retweets and comments and
+                newsletters and
+                Slack threads.
+
+                Yet as time passes by, the excitement slowly fades away, and urgent adjustments, much-needed
+                features, and
+                new business requirements creep in. And suddenly, before you know it, the code base gets a little
+                bit
+                overweight and fragmented, third-party scripts have to load just a little bit earlier, and shiny new
+                dynamic
+                content finds its way into the DOM through the backdoors of fourth-party scripts and their uninvited
+                guests.
+
+                We’ve been there at Smashing as well. Not many people know it but we are a very small team of around
+                12
+                people, many of whom are working part-time and most of whom are usually wearing many different hats
+                on a
+                given day. While performance has been our goal for almost a decade now, we never really had a
+                dedicated
+                performance team.
+
+
+                <section><img src="./images/stats.png" alt=""></section>
+
+                <i>This is where we started. With Lighthouse scores being somewhere between 40 and 60, we decided to
+                    tackle
+                    performance (yet again) heads on. (Image source: Lighthouse Metrics) (Large preview)</i>
+
+                <div class="comment">As it happened, we lost track of performance in the busyness of day-to-day routine.
+                    We were
+                    designing and building things, setting up new products, refactoring the components, and publishing
+                    articles.
+                    So by late 2020, things got a bit out of control, with yellowish-red Lighthouse scores slowly
+                    showing up
+                    across the board. We had to fix that.</div>
+
+                <h2>That’s Where We Were</h2>
+                <br>
+                <br>
+
+                <div class="article">
+
+                    Some of you might know that we are running on JAMStack, with all articles and pages stored as
+                    Markdown
+                    files, Sass files compiled into CSS, JavaScript split into chunks with Webpack and Hugo building out
+                    static
+                    pages that we then serve directly from an Edge CDN. Back in 2017 we built the entire site with
+                    Preact, but
+                    then have moved to React in 2019 — and use it along with a few APIs for search, comments,
+                    authentication and
+                    checkout.
+                    <br>
+                    <br>
+                    The entire site is built with progressive enhancement in mind, meaning that you, dear reader, can
+                    read every
+                    Smashing article in its entirety without the need to boot the application at all. It’s not very
+                    surprising
+                    either — in the end, a published article doesn’t change much over the years, while dynamic pieces
+                    such as
+                    Membership authentication and checkout need the application to run.
+                    The entire build for deploying around 2500 articles live takes around 6 mins at the moment. The
+                    build
+                    process on its own has become quite a beast over time as well, with critical CSS injects, Webpack’s
+                    code
+                    splitting, dynamic inserts of advertising and feature panels, RSS (re)generation, and eventual A/B
+                    testing
+                    on the edge.
+                    <br>
+                    <br>
+                    In early 2020, we’ve started with the big refactoring of the CSS layout components. We never used
+                    CSS-in-JS
+                    or styled-components, but instead a good ol’ component-based system of Sass-modules which would be
+                    compiled
+                    into CSS. Back in 2017, the entire layout was built with Flexbox and rebuilt with CSS Grid and CSS
+                    Custom
+                    Properties in mid-2019. However, some pages needed special treatment due to new advertising spots
+                    and new
+                    product panels. So while the layout was working, it wasn’t working very well, and it was quite
+                    difficult to
+                    maintain.
+                    Additionally, the header with the main navigation had to change to accommodate for more items that
+                    we wanted
+                    to display dynamically. Plus, we wanted to refactor some frequently used components used across the
+                    site,
+                    and the CSS used there needed some revision as well — the newsletter box being the most notable
+                    culprit. We
+                    started off by refactoring some components with utility-first CSS but we never got to the point that
+                    it was
+                    used consistently across the entire site.
+                    <br>
+                    <br>
+                    The larger issue was the large JavaScript bundle that — not very surprisingly — was blocking the
+                    main-thread
+                    for hundreds of milliseconds. A big JavaScript bundle might seem out of place on a magazine that
+                    merely
+                    publishes articles, but actually, there is plenty of scripting happening behind the scenes.
+                    We have various states of components for authenticated and unauthenticated customers. Once you are
+                    signed
+                    in, we want to show all products in the final price, and as you add a book to the cart, we want to
+                    keep a
+                    cart accessible with a tap on a button — no matter what page you are on. Advertising needs to come
+                    in
+                    quickly without causing disruptive layout shifts, and the same goes for the native product panels
+                    that
+                    highlight our products. Plus a service worker that caches all static assets and serves them for
+                    repeat
+                    views, along with cached versions of articles that a reader has already visited.
+                    So all of this scripting had to happen at some point, and it was draining on the reading experience
+                    even
+                    although the script was coming in quite late. Frankly, we were painstakingly working on the site and
+                    new
+                    components without keeping a close eye on performance (and we had a few other things to keep in mind
+                    for
+                    2020). 
+                    <br>
+                    <br>
+                    The turning point came unexpectedly. Harry Roberts ran his (excellent) Web Performance
+                    Masterclass as
+                    an online workshop with us, and throughout the entire workshop, he was using Smashing as an example
+                    by
+                    highlighting issues that we had and suggesting solutions to those issues alongside useful tools and
+                    guidelines.
+                    Throughout the workshop, I was diligently taking notes and revisiting the codebase. At the time of
+                    the
+                    workshop, our Lighthouse scores were 60–68 on the homepage, and around 40-60 on article pages — and
+                    obviously worse on mobile. Once the workshop was over, we got to work.
+                    Identifying The Bottlenecks
+                    We often tend to rely on particular scores to get an understanding of how well we perform, yet too
+                    often
+                    single scores don’t provide a full picture. As David East eloquently noted in his article, web
+                    performance
+                    isn’t a single value; it’s a distribution. Even if a web experience is heavily and thoroughly an
+                    optimized
+                    all-around performance, it can’t be just fast. It might be fast to some visitors, but ultimately it
+                    will
+                    also be slower (or slow) to some others.
+                    <br>
+                    <br>
+                    The reasons for it are numerous, but the most important one is a huge difference in network
+                    conditions and
+                    device hardware across the world. More often than not we can’t really influence those things, so we
+                    have to
+                    ensure that our experience accommodates them instead.
+                    In essence, our job then is to increase the proportion of snappy experiences and decrease the
+                    proportion of
+                    sluggish experiences. But for that, we need to get a proper picture of what the distribution
+                    actually is.
+                    Now, analytics tools and performance monitoring tools will provide this data when needed, but we
+                    looked
+                    specifically into CrUX, Chrome User Experience Report. CrUX generates an overview of performance
+                    distributions over time, with traffic collected from Chrome users. Much of this data related to Core
+                    Web
+                    Vitals which Google has announced back in 2020, and which also contribute to and are exposed in
+                    Lighthouse.
+
+
+                </div>
+            </ul>
+            <div class="foto">
+                <img src="./images/stats2.png" alt="">
+                <p> The performance distribution for Largest Contentful Paint in 2020. Between May and September the
+                    performance has dropped massively. Data from CrUX. (Large preview)</p>
+
+                <section>
+                    <a href="">
+                        <h2>That's it, Folks</h2>
+                        <br>
+                    </a>
+                </section>
+                <!-- <h2 class="that's"> <a href=""> That’s It, Folks!</h2></a> -->
+                <div class="article">
+                    Hopefully, this little case-study will be useful to you, and perhaps there are one or two techniques
+                    that you might be able to apply to your project right away. In the end, performance is all about a
+                    sum of all the fine little details, that, when added up, make or break your customer’s experience.
+                    While we are very committed to getting better at performance, we also work on improving
+                    accessibility and the content of the site. So if you spot anything that’s not quite right or
+                    anything that we could do to further improve Smashing Magazine, please let us know in the comments
+                    to this article.
+                    Finally, if you’d like to stay updated on articles like this one, please subscribe to our email
+                    newsletter for friendly web tips, goodies, tools and articles, and a seasonal selection of Smashing
+                    cats.
+                </div>
+                <footer>
+
+                    <a href="">mati BROWSE ALL SMASHING MAGAZINE TOPICS</a>
+                    <a href="">Accessibility</a>
+                    <a href="">Android</a>
+                    <a href="">Ani on</a>
+                    <a href="">Apps</a>
+                    <a href="">CSS</a>
+                    <a href="">Design</a>
+                    <a href="">Design Patterns</a>
+                    <a href="">Design Systems</a>
+                    <a href="">Ecommerce</a>
+                    <a href="">Freebies</a>
+                    <a href="">Graphics</a>
+                    <a href="">HTML</a>
+                    <a href="">Illustrator</a>
+                    <a href="">✎ Write for us</a>
+                    <a href="">Contact us</a>
+                    <a href="">About us (Impressum)</a>
+                    <a href="">Privacy policy</a>
+
+
+
+
+
+                </footer>
+            </div>
+
+
+        </div>
+
+   </main>
+
+
+
+</body>
+
+</html>
